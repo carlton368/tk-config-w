@@ -26,11 +26,6 @@ settings.tk-unreal.project:
       location: "@apps.tk-multi-pythonconsole.location"
     tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.unreal"
   location: "@tk-unreal.location"
-<<<<<<< HEAD
-=======
-  menu_favourites:
-  - {app_instance: tk-multi-publish2, name: 'Publish...'}
->>>>>>> 549e6fe42be15867662b7b3238141a23631c37a6
   run_at_startup:
     - {app_instance: tk-multi-shotgunpanel, name: ''}
   launch_builtin_plugins: [basic]
