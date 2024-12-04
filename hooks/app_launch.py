@@ -66,15 +66,50 @@ class AppLaunch(tank.Hook):
         user = context.user
         depart = sg.find_one("Department", [['users', 'in', user]], ['name'])
 
+<<<<<<< HEAD
         # Handle UE special case for Python 3
+=======
+        depart_confirm = False
+
+        if depart is not None:
+            if (depart['name'] == 'RND' and engine_name == 'tk-nuke') or depart['name'] in ['General']:
+                depart_confirm = True
+        else:
+            self.parent.log_debug("No department found for user: %s" % user)
+
+>>>>>>> 549e6fe42be15867662b7b3238141a23631c37a6
         if sys.version_info.major == 3 and app_name == 'unreal' and system == 'Windows':
             now_dir = os.path.dirname(os.path.abspath(__file__))
             packages = os.path.join(now_dir, 'packages', 'win')
             sys.path.append(packages)
 
+<<<<<<< HEAD
         # Default launch logic
         if tank.util.is_linux():
             cmd = "%s %s &" % (app_path, app_args)
+=======
+            external_paths = [
+                "external_path3",
+                packages
+            ]
+            
+            new_paths = os.pathsep.join(external_paths)
+            
+            if 'UE_PYTHONPATH' in os.environ:
+                os.environ['UE_PYTHONPATH'] += os.pathsep + new_paths
+            else:
+                os.environ['UE_PYTHONPATH'] = new_paths
+
+            self.parent.log_debug("UNREAL ENGINE will be launched at WINDOWS OS")
+            self.parent.log_debug("HOOKS_APP_LAUNCH Updated Unreal Python paths:")
+            self.parent.log_debug("UE_PYTHONPATH: %s" % os.environ['UE_PYTHONPATH'])
+            self.parent.log_debug("sys.path: %s" % sys.path)
+
+        if depart_confirm:
+            
+            adapter = get_adapter(platform.system())
+            packages = get_rez_packages(sg, app_name, version, system, project)
+>>>>>>> 549e6fe42be15867662b7b3238141a23631c37a6
 
         elif tank.util.is_macos():
             if app_path.endswith(".app"):
